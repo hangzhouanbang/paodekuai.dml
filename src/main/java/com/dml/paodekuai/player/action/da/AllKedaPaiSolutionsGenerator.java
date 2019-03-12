@@ -14,8 +14,10 @@ import com.dml.paodekuai.player.action.da.solution.DaPaiDianShuSolution;
 public interface AllKedaPaiSolutionsGenerator {
 	/**
 	 * 一般情况的所有可打牌
+	 *
+	 * @param  baodan 本盘是否已报单
 	 */
-	Map<String, DaPaiDianShuSolution> generateAllKedaPaiSolutions(Map<Integer, PukePai> allShoupai);
+	Map<String, DaPaiDianShuSolution> generateAllKedaPaiSolutions(Map<Integer, PukePai> allShoupai, boolean baodan);
 
 	/**
 	 * 首次出牌时

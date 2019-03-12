@@ -34,6 +34,7 @@ public class Pan {
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 	private String zhuaniaoPlayerId;	// 抓鸟玩家id
+	private boolean baodan;  //报单
 	private List<PanActionFrame> actionFrameList = new ArrayList<>();
 
 	public boolean ifPlayerHasPai(String playerId) throws PlayerNotFoundException {
@@ -119,6 +120,11 @@ public class Pan {
 
 		daPlayer.da(paiIds, dianshuZuheIdx, waihaoGenerator);
 
+		// 剩一张牌时报单
+		if (daPlayer.getAllShoupai().size() == 1) {
+			baodan = true;
+		}
+
 		// 本次打出的牌
 		DianShuZuPaiZu publicDachuPaiZu = daPlayer.getPublicDachuPaiZu();
 		dachuPaiZuList.add(publicDachuPaiZu);
@@ -166,7 +172,7 @@ public class Pan {
 					}
 					if (yapaiPlayer != null) {
 						yapaiPlayer.addDaPaiDianShuSolutions(dianShuZuYaPaiCalculator
-								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray()));
+								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray(), baodan));
 						yapaiPlayer.addDaPaiDianShuSolutions(zaDanYaPaiCalculator.
 								calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray()));
 					}
@@ -382,5 +388,13 @@ public class Pan {
 
 	public void setZhuaniaoPlayerId(String zhuaniaoPlayerId) {
 		this.zhuaniaoPlayerId = zhuaniaoPlayerId;
+	}
+
+	public boolean isBaodan() {
+		return baodan;
+	}
+
+	public void setBaodan(boolean baodan) {
+		this.baodan = baodan;
 	}
 }

@@ -1,9 +1,7 @@
 package com.dml.paodekuai.pai.dianshuzu;
 
-import com.alibaba.fastjson.JSON;
 import com.dml.puke.pai.DianShu;
-import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
-import com.sun.jmx.remote.internal.ArrayQueue;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DanzhangDianShuZu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +11,23 @@ import java.util.List;
  * 通过点数数量数组生成相关的所有可能点数组:跑得快特有三带二、飞机
  */
 public class PaodekuaiDianShuZuGenerator {
+
+    /**
+     * 取出所有牌中最大的单张
+     */
+    public static List<DanzhangDianShuZu> largestDanzhangDianshuzu(int[] dianShuAmountArray) {
+        List<DanzhangDianShuZu> danzhangList = new ArrayList<>();
+        for (int i = dianShuAmountArray.length - 1; i < 0; i--) {
+            int dianshuCount = dianShuAmountArray[i];
+            if (dianshuCount >= 1) {
+                DanzhangDianShuZu danzhangDianShuZu = new DanzhangDianShuZu(DianShu.getDianShuByOrdinal(i));
+                danzhangList.add(danzhangDianShuZu);
+                break;
+            }
+        }
+        return danzhangList;
+    }
+
     public static List<SandaierDianShuZu> generateAllSandaierDianShuZu(int[] dianShuAmountArray, boolean sandaique) {
         List<SandaierDianShuZu> sanzhangList = new ArrayList<>();
         for (int i = 0; i < dianShuAmountArray.length; i++) {
