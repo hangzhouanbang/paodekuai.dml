@@ -12,7 +12,7 @@ import com.dml.paodekuai.player.PaodekuaiPlayerValueObject;
 
 public class PanValueObject {
 	private int no;
-	private List<PaodekuaiPlayerValueObject> shuangkouPlayerList;
+	private List<PaodekuaiPlayerValueObject> paodekuaiPlayerList;
 	private PaiListValueObject paiListValueObject;
 	private Map<Position, String> positionPlayerIdMap;
 	private List<DianShuZuPaiZu> dachuPaiZuList;
@@ -24,9 +24,9 @@ public class PanValueObject {
 
 	public PanValueObject(Pan pan) {
 		no = pan.getNo();
-		shuangkouPlayerList = new ArrayList<>();
+		paodekuaiPlayerList = new ArrayList<>();
 		pan.getPaodekuaiPlayerIdMajiangPlayerMap().values()
-				.forEach((shuangkouPlayer) -> shuangkouPlayerList.add(new PaodekuaiPlayerValueObject(shuangkouPlayer)));
+				.forEach((paodekuaiPlayer) -> paodekuaiPlayerList.add(new PaodekuaiPlayerValueObject(paodekuaiPlayer)));
 		paiListValueObject = new PaiListValueObject(pan.getAvaliablePaiList());
 		positionPlayerIdMap = new HashMap<>(pan.getPositionPlayerIdMap());
 		dachuPaiZuList = new ArrayList<>(pan.getDachuPaiZuList());
@@ -36,14 +36,14 @@ public class PanValueObject {
 
 	public List<String> allPlayerIds() {
 		List<String> list = new ArrayList<>();
-		for (PaodekuaiPlayerValueObject player : shuangkouPlayerList) {
+		for (PaodekuaiPlayerValueObject player : paodekuaiPlayerList) {
 			list.add(player.getId());
 		}
 		return list;
 	}
 
 	public Position playerPosition(String playerId) {
-		for (PaodekuaiPlayerValueObject player : shuangkouPlayerList) {
+		for (PaodekuaiPlayerValueObject player : paodekuaiPlayerList) {
 			if (player.getId().equals(playerId)) {
 				return player.getPosition();
 			}
@@ -52,7 +52,7 @@ public class PanValueObject {
 	}
 
 	public PaodekuaiPlayerValueObject findPlayer(String playerId) {
-		for (PaodekuaiPlayerValueObject player : shuangkouPlayerList) {
+		for (PaodekuaiPlayerValueObject player : paodekuaiPlayerList) {
 			if (player.getId().equals(playerId)) {
 				return player;
 			}
@@ -92,12 +92,12 @@ public class PanValueObject {
 		this.dachuPaiZuList = dachuPaiZuList;
 	}
 
-	public List<PaodekuaiPlayerValueObject> getShuangkouPlayerList() {
-		return shuangkouPlayerList;
+	public List<PaodekuaiPlayerValueObject> getPaodekuaiPlayerList() {
+		return paodekuaiPlayerList;
 	}
 
-	public void setShuangkouPlayerList(List<PaodekuaiPlayerValueObject> shuangkouPlayerList) {
-		this.shuangkouPlayerList = shuangkouPlayerList;
+	public void setPaodekuaiPlayerList(List<PaodekuaiPlayerValueObject> paodekuaiPlayerList) {
+		this.paodekuaiPlayerList = paodekuaiPlayerList;
 	}
 
 	public Position getActionPosition() {

@@ -1,17 +1,17 @@
 package com.dml.paodekuai.pan;
 
-import com.dml.paodekuai.player.action.ShuangkouPlayerAction;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerAction;
 
 public class PanActionFrame {
 	private int no;
-	private ShuangkouPlayerAction action;
+	private PaodekuaiPlayerAction action;
 	private PanValueObject panAfterAction;
 	private long actionTime;
 
 	public PanActionFrame() {
 	}
 
-	public PanActionFrame(ShuangkouPlayerAction action, PanValueObject panAfterAction, long actionTime) {
+	public PanActionFrame(PaodekuaiPlayerAction action, PanValueObject panAfterAction, long actionTime) {
 		this.action = action;
 		this.panAfterAction = panAfterAction;
 		this.actionTime = actionTime;
@@ -25,11 +25,11 @@ public class PanActionFrame {
 		this.no = no;
 	}
 
-	public ShuangkouPlayerAction getAction() {
+	public PaodekuaiPlayerAction getAction() {
 		return action;
 	}
 
-	public void setAction(ShuangkouPlayerAction action) {
+	public void setAction(PaodekuaiPlayerAction action) {
 		this.action = action;
 	}
 

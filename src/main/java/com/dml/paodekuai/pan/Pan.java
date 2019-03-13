@@ -9,7 +9,7 @@ import com.dml.puke.wanfa.position.PositionUtil;
 import com.dml.paodekuai.pai.waihao.WaihaoGenerator;
 import com.dml.paodekuai.player.PlayerNotFoundException;
 import com.dml.paodekuai.player.PaodekuaiPlayer;
-import com.dml.paodekuai.player.action.ShuangkouPlayerAction;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerAction;
 import com.dml.paodekuai.player.action.da.DaAction;
 import com.dml.paodekuai.player.action.da.KedaPaiSolutionsForTipsGenerator;
 import com.dml.paodekuai.player.action.da.PlayerCanNotActionException;
@@ -45,7 +45,7 @@ public class Pan {
 		return new ArrayList<>(paodekuaiPlayerIdMajiangPlayerMap.keySet());
 	}
 
-	public PanActionFrame recordPanActionFrame(ShuangkouPlayerAction action, long actionTime) {
+	public PanActionFrame recordPanActionFrame(PaodekuaiPlayerAction action, long actionTime) {
 		PanActionFrame frame = new PanActionFrame(action, new PanValueObject(this), actionTime);
 		frame.setNo(actionFrameList.size());
 		actionFrameList.add(frame);
@@ -61,9 +61,9 @@ public class Pan {
 	}
 
 	public void addPlayer(String playerId) {
-		PaodekuaiPlayer shuangkouPlayer = new PaodekuaiPlayer();
-		shuangkouPlayer.setId(playerId);
-		paodekuaiPlayerIdMajiangPlayerMap.put(playerId, shuangkouPlayer);
+		PaodekuaiPlayer paodekuaiPlayer = new PaodekuaiPlayer();
+		paodekuaiPlayer.setId(playerId);
+		paodekuaiPlayerIdMajiangPlayerMap.put(playerId, paodekuaiPlayer);
 	}
 
 	public void addFrame(PanActionFrame panActionFrame) {

@@ -31,12 +31,12 @@ public class PaodekuaiPlayerValueObject {
 
 	}
 
-	public PaodekuaiPlayerValueObject(PaodekuaiPlayer shuangkouPlayer) {
-		id = shuangkouPlayer.getId();
-		position = shuangkouPlayer.getPosition();
+	public PaodekuaiPlayerValueObject(PaodekuaiPlayer paodekuaiPlayer) {
+		id = paodekuaiPlayer.getId();
+		position = paodekuaiPlayer.getPosition();
 		liangPaiList = new ArrayList<>();
 		allShoupai = new HashMap<>();
-		allShoupai.putAll(shuangkouPlayer.getAllShoupai());
+		allShoupai.putAll(paodekuaiPlayer.getAllShoupai());
 		for (PukePai pukePai : allShoupai.values()) {
 			if (pukePai.getMark() != null && pukePai.getMark() instanceof ZuDuiLiangPaiMark
 					|| pukePai.getMark() instanceof QiShouLiangPaiMark) {
@@ -44,13 +44,13 @@ public class PaodekuaiPlayerValueObject {
 			}
 		}
 		totalShoupai = allShoupai.size();
-		shoupaiDianShuAmountArray = shuangkouPlayer.getShoupaiDianShuAmountArray().clone();
-		shoupaiIdListForSortList = new ArrayList<>(shuangkouPlayer.getShoupaiIdListForSortList());
-		lishiDachuPaiZuList = new ArrayList<>(shuangkouPlayer.getLishiDachuPaiZuList());
-		publicDachuPaiZu = shuangkouPlayer.getPublicDachuPaiZu();
-		yaPaiSolutionCandidates = new ArrayList<>(shuangkouPlayer.getYaPaiSolutionCandidates().values());
-		yaPaiSolutionsForTips = new ArrayList<>(shuangkouPlayer.getYaPaiSolutionsForTips());
-		guo = shuangkouPlayer.isGuo();
+		shoupaiDianShuAmountArray = paodekuaiPlayer.getShoupaiDianShuAmountArray().clone();
+		shoupaiIdListForSortList = new ArrayList<>(paodekuaiPlayer.getShoupaiIdListForSortList());
+		lishiDachuPaiZuList = new ArrayList<>(paodekuaiPlayer.getLishiDachuPaiZuList());
+		publicDachuPaiZu = paodekuaiPlayer.getPublicDachuPaiZu();
+		yaPaiSolutionCandidates = new ArrayList<>(paodekuaiPlayer.getYaPaiSolutionCandidates().values());
+		yaPaiSolutionsForTips = new ArrayList<>(paodekuaiPlayer.getYaPaiSolutionsForTips());
+		guo = paodekuaiPlayer.isGuo();
 	}
 
 	public int getTotalShoupai() {

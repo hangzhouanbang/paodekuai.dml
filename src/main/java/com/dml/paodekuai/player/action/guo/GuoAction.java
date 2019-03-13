@@ -1,7 +1,7 @@
 package com.dml.paodekuai.player.action.guo;
 
-import com.dml.paodekuai.player.action.ShuangkouPlayerAction;
-import com.dml.paodekuai.player.action.ShuangkouPlayerActionType;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerAction;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerActionType;
 
 /**
  * 过
@@ -9,13 +9,13 @@ import com.dml.paodekuai.player.action.ShuangkouPlayerActionType;
  * @author Neo
  *
  */
-public class GuoAction extends ShuangkouPlayerAction {
+public class GuoAction extends PaodekuaiPlayerAction {
 
 	public GuoAction() {
 	}
 
 	public GuoAction(String actionPlayerId) {
-		super(ShuangkouPlayerActionType.guo, actionPlayerId);
+		super(PaodekuaiPlayerActionType.guo, actionPlayerId);
 	}
 
 }

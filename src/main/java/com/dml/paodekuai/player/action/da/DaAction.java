@@ -1,8 +1,8 @@
 package com.dml.paodekuai.player.action.da;
 
 import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
-import com.dml.paodekuai.player.action.ShuangkouPlayerAction;
-import com.dml.paodekuai.player.action.ShuangkouPlayerActionType;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerAction;
+import com.dml.paodekuai.player.action.PaodekuaiPlayerActionType;
 
 /**
  * 打
@@ -10,7 +10,7 @@ import com.dml.paodekuai.player.action.ShuangkouPlayerActionType;
  * @author Neo
  *
  */
-public class DaAction extends ShuangkouPlayerAction {
+public class DaAction extends PaodekuaiPlayerAction {
 
 	private DianShuZuPaiZu dachuPaiZu;
 
@@ -18,7 +18,7 @@ public class DaAction extends ShuangkouPlayerAction {
 	}
 
 	public DaAction(String actionPlayerId) {
-		super(ShuangkouPlayerActionType.da, actionPlayerId);
+		super(PaodekuaiPlayerActionType.da, actionPlayerId);
 	}
 
 	public DianShuZuPaiZu getDachuPaiZu() {
