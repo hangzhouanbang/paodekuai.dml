@@ -1,10 +1,6 @@
 package com.dml.paodekuai.pan;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.dml.puke.pai.PukePai;
 import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
@@ -34,8 +30,8 @@ public class Pan {
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 	private String zhuaniaoPlayerId;	// 抓鸟玩家id
-	private boolean baodan;  //报单
 	private List<PanActionFrame> actionFrameList = new ArrayList<>();
+	private Set<String> baodanSet = new HashSet<>();
 
 	public boolean ifPlayerHasPai(String playerId) throws PlayerNotFoundException {
 		PaodekuaiPlayer player = paodekuaiPlayerIdMajiangPlayerMap.get(playerId);
@@ -122,7 +118,7 @@ public class Pan {
 
 		// 剩一张牌时报单
 		if (daPlayer.getAllShoupai().size() == 1) {
-			baodan = true;
+			baodanSet.add(daPlayer.getId());
 		}
 
 		// 本次打出的牌
@@ -172,7 +168,7 @@ public class Pan {
 					}
 					if (yapaiPlayer != null) {
 						yapaiPlayer.addDaPaiDianShuSolutions(dianShuZuYaPaiCalculator
-								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray(), baodan));
+								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray(), afterNextBaodan()));
 						yapaiPlayer.addDaPaiDianShuSolutions(zaDanYaPaiCalculator.
 								calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray()));
 					}
@@ -299,6 +295,38 @@ public class Pan {
 	}
 
 	/**
+	 * 查找三人局中下下家玩家id
+	 */
+	public String findAfterNextPlayer() {
+		Position nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
+		String nextPlayerId = positionPlayerIdMap.get(nextPosition);
+		while (nextPlayerId == null) {
+			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
+			nextPlayerId = positionPlayerIdMap.get(nextPosition);
+		}
+
+		nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
+		nextPlayerId = positionPlayerIdMap.get(nextPosition);
+		while (nextPlayerId == null) {
+			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
+			nextPlayerId = positionPlayerIdMap.get(nextPosition);
+		}
+		return nextPlayerId;
+	}
+
+	/**
+	 * 通过三人局中下下家是否报单决定下家单张牌的打牌方案
+	 */
+	public boolean afterNextBaodan(){
+		boolean baodan = false;
+		String afterNextPlayerId = findAfterNextPlayer();
+		if (baodanSet.contains(afterNextPlayerId)) {
+			baodan = true;
+		}
+		return baodan;
+	}
+
+	/**
 	 * ------------------set/get
 	 */
 
@@ -390,11 +418,11 @@ public class Pan {
 		this.zhuaniaoPlayerId = zhuaniaoPlayerId;
 	}
 
-	public boolean isBaodan() {
-		return baodan;
+	public Set<String> getBaodanSet() {
+		return baodanSet;
 	}
 
-	public void setBaodan(boolean baodan) {
-		this.baodan = baodan;
+	public void setBaodanSet(Set<String> baodanSet) {
+		this.baodanSet = baodanSet;
 	}
 }

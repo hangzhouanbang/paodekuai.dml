@@ -159,14 +159,11 @@ public class Ju {
         if (currentPan.ifStartYapai()) {// 下一人是最后出牌人
             PaodekuaiPlayer nextPlayer = currentPan.findNextActionPlayer();
             nextPlayer.putYaPaiSolutionCandidates(
-                    allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(nextPlayer.getAllShoupai(), currentPan.isBaodan()));
+                    allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(nextPlayer.getAllShoupai(), currentPan.afterNextBaodan()));
 
             // 可压提示过滤
             nextPlayer.generateNotYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
 
-            // 划起提示
-            // nextPlayer.generateDaPaiSolutionsForTips(kedaPaiSolutionsForTipsGenerator);
-            // currentPan.setChuifeng(false);
             currentPan.updateActionPositionToNextPlayer();
             currentPan.setLatestDapaiPlayerId(null);
         } else {
@@ -174,8 +171,6 @@ public class Ju {
             currentPan.updateNextPlayersDaSolution(dianShuZuYaPaiSolutionCalculator, zaDanYaPaiSolutionCalculator);
             // 可压提示过滤
             currentPan.generateYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
-            // 划起提示
-            // currentPan.generateDaPaiSolutionsForTips(kedaPaiSolutionsForTipsGenerator);
             currentPan.updateActionPositionToNextPlayer();
         }
         return currentPan.recordPanActionFrame(guoAction, actionTime);
