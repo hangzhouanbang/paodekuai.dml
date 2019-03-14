@@ -24,6 +24,19 @@ public class OptionalPlay {
         return true;
     }
 
+    public OptionalPlay() {
+    }
+
+    public OptionalPlay(boolean bichu, boolean biya, boolean aBoom, boolean sandaique, boolean feijique, boolean showShoupaiNum, boolean zhuaniao) {
+        this.bichu = bichu;
+        this.biya = biya;
+        this.aBoom = aBoom;
+        this.sandaique = sandaique;
+        this.feijique = feijique;
+        this.showShoupaiNum = showShoupaiNum;
+        this.zhuaniao = zhuaniao;
+    }
+
     public boolean isBichu() {
         return bichu;
     }
