@@ -1,5 +1,6 @@
 package com.dml.paodekuai.pai.dianshuzu;
 
+import com.alibaba.fastjson.JSON;
 import com.dml.puke.pai.DianShu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DanzhangDianShuZu;
 
@@ -28,15 +29,17 @@ public class PaodekuaiDianShuZuGenerator {
         return danzhangList;
     }
 
+    /**
+     * 三带二
+     */
     public static List<SandaierDianShuZu> generateAllSandaierDianShuZu(int[] dianShuAmountArray, boolean sandaique) {
         List<SandaierDianShuZu> sanzhangList = new ArrayList<>();
         for (int i = 0; i < dianShuAmountArray.length; i++) {
             int[] tempDinashu = Arrays.copyOf(dianShuAmountArray, 13);
             int dianshuCount = dianShuAmountArray[i];
             if (dianshuCount >= 3) {
-                SandaierDianShuZu sandaierDianShuZu = new SandaierDianShuZu();
+                // 三张点数组
                 DianShu[] sanzhangDianShuArray = {DianShu.getDianShuByOrdinal(i)};
-                sandaierDianShuZu.setSanzhangDianShuArray(sanzhangDianShuArray);
 
                 //取出除去三张之外的所有余牌
                 tempDinashu[i] = tempDinashu[i] - 3;
@@ -45,24 +48,32 @@ public class PaodekuaiDianShuZuGenerator {
                 if (sandaique && daipaiList.size() < 2) {
                     DianShu[] dianShus = new DianShu[daipaiList.size()];
                     daipaiList.toArray(dianShus);
+                    SandaierDianShuZu sandaierDianShuZu = new SandaierDianShuZu();
+                    sandaierDianShuZu.setSanzhangDianShuArray(sanzhangDianShuArray);
                     sandaierDianShuZu.setMissingType(true);
                     sanzhangList.add(sandaierDianShuZu);
                     continue;
                 }
 
-                //todo 有重复
+                // 有重复
                 for (int a = 0; a < daipaiList.size() - 1; a++) {
                     for (int b = a + 1; b < daipaiList.size(); b++) {
                         DianShu[] daipaiDianshuzu = {daipaiList.get(a), daipaiList.get(b)};
+                        SandaierDianShuZu sandaierDianShuZu = new SandaierDianShuZu();
+                        sandaierDianShuZu.setSanzhangDianShuArray(sanzhangDianShuArray);
                         sandaierDianShuZu.setDaipaiDianShuArray(daipaiDianshuzu);
                         sanzhangList.add(sandaierDianShuZu);
                     }
                 }
             }
         }
+
         return sanzhangList;
     }
 
+    /**
+     * 飞机
+     */
     public static List<FeijiDianShuZu> generateAllFeijiDianShuZu(int[] dianShuAmountArray, int length, boolean feijique) {
         List<FeijiDianShuZu> feijiDianShuZus = new ArrayList<>();
         for (int i = 0; i < dianShuAmountArray.length; i++) {
@@ -118,7 +129,7 @@ public class PaodekuaiDianShuZuGenerator {
 
                     //带牌
                     List<DianShu[]> daipaiList = new ArrayList<>();
-                    quPai(daipaiList, new DianShu[length], yupaiList, length, 0, 0);
+                    quPai(daipaiList, yupaiList, new DianShu[length], length, 0, 0);
 
                     for (DianShu[] daipaiDianshuzu : daipaiList) {
                         FeijiDianShuZu feijiDianShuZu = new FeijiDianShuZu();
@@ -132,6 +143,9 @@ public class PaodekuaiDianShuZuGenerator {
         return feijiDianShuZus;
     }
 
+    /**
+     * aaa
+     */
     public static List<ABoomDianShuZu> generateAllABoomDianShuZu(int[] dianShuAmountArray) {
         List<ABoomDianShuZu> aBoomDianShuZus = new ArrayList<>();
         if (dianShuAmountArray[11] == 3) {
@@ -140,6 +154,70 @@ public class PaodekuaiDianShuZuGenerator {
             aBoomDianShuZus.add(aBoomDianShuZu);
         }
         return aBoomDianShuZus;
+    }
+
+    /**
+     * 四带二
+     */
+    public static List<SidaierDianShuZu> generateAllSidaierDianShuZu(int[] dianShuAmountArray) {
+        List<SidaierDianShuZu> sidaierDianShuZus = new ArrayList<>();
+        for (int i = 0; i < dianShuAmountArray.length; i++) {
+            int[] tempDinashu = Arrays.copyOf(dianShuAmountArray, 13);
+            int dianshuCount = dianShuAmountArray[i];
+            if (dianshuCount == 4) {
+                // 四张的牌
+                DianShu danpaiDianShu = DianShu.getDianShuByOrdinal(i);
+
+                //取出除去四张之外的所有余牌
+                tempDinashu[i] = tempDinashu[i] - 4;
+                List<DianShu> yupaiList = leftHand(tempDinashu);
+
+                if (yupaiList.size() < 2) {
+                    continue;
+                }
+                List<DianShu[]> daipaiList = new ArrayList<>();
+                quPai(daipaiList, yupaiList, new DianShu[2], 2, 0, 0);
+                for (DianShu[] dianShus : daipaiList) {
+                    SidaierDianShuZu sidaierDianShuZu = new SidaierDianShuZu();
+                    sidaierDianShuZu.setDanpaiDianShu(danpaiDianShu);
+                    sidaierDianShuZu.setDaipaiDianShuArray(dianShus);
+                    sidaierDianShuZus.add(sidaierDianShuZu);
+                }
+            }
+        }
+        return sidaierDianShuZus;
+    }
+
+    /**
+     * 四带三
+     */
+    public static List<SidaisanDianShuZu> generateAllSidaisanDianShuZu(int[] dianShuAmountArray) {
+        List<SidaisanDianShuZu> sidaisanDianShuZus = new ArrayList<>();
+        for (int i = 0; i < dianShuAmountArray.length; i++) {
+            int[] tempDinashu = Arrays.copyOf(dianShuAmountArray, 13);
+            int dianshuCount = dianShuAmountArray[i];
+            if (dianshuCount == 4) {
+                // 四张的牌
+                DianShu danpaiDianShu = DianShu.getDianShuByOrdinal(i);
+
+                //取出除去四张之外的所有余牌
+                tempDinashu[i] = tempDinashu[i] - 4;
+                List<DianShu> yupaiList = leftHand(tempDinashu);
+
+                if (yupaiList.size() < 3) {
+                    continue;
+                }
+                List<DianShu[]> daipaiList = new ArrayList<>();
+                quPai(daipaiList, yupaiList, new DianShu[3], 3, 0, 0);
+                for (DianShu[] dianShus : daipaiList) {
+                    SidaisanDianShuZu sidaisanDianShuZu = new SidaisanDianShuZu();
+                    sidaisanDianShuZu.setDanpaiDianShu(danpaiDianShu);
+                    sidaisanDianShuZu.setDaipaiDianShuArray(dianShus);
+                    sidaisanDianShuZus.add(sidaisanDianShuZu);
+                }
+            }
+        }
+        return sidaisanDianShuZus;
     }
 
     /**
@@ -152,12 +230,12 @@ public class PaodekuaiDianShuZuGenerator {
      * @param index           取牌起点下标
      * @param time            取牌次数
      */
-    private static void quPai(List<DianShu[]> diapaiList, DianShu[] daipaiDianshuzu, List<DianShu> yuPaiList,
+    private static void quPai(List<DianShu[]> diapaiList, List<DianShu> yuPaiList, DianShu[] daipaiDianshuzu,
                               int length, int index, int time) {
         if (time < length) {  //2 < 3
             for (int i = index; i < yuPaiList.size(); i++) {
                 daipaiDianshuzu[time] = yuPaiList.get(i);
-                quPai(diapaiList, daipaiDianshuzu, yuPaiList, length, i + 1, time + 1);
+                quPai(diapaiList, yuPaiList, daipaiDianshuzu, length, i + 1, time + 1);
             }
         } else {
             DianShu[] dianShus = daipaiDianshuzu.clone();
@@ -185,6 +263,13 @@ public class PaodekuaiDianShuZuGenerator {
 //        quPai(result,daipai, yuPaiList,8, 0 ,0);
 //        System.out.println(JSON.toJSONString(result));
 //        System.out.println(result.size());
+//    }
+
+//    public static void main(String[] args) {
+//        int[] first = {1, 3, 1, 1, 0, 2, 1, 1, 2, 0, 2, 1, 1, 0, 0};
+//        List<SandaierDianShuZu> dianShuZus = generateAllSandaierDianShuZu(first,false);
+//        System.out.println(JSON.toJSONString(dianShuZus));
+//        System.out.println(dianShuZus.size());
 //    }
 
     //取出余牌

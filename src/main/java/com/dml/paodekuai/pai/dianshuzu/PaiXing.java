@@ -17,6 +17,9 @@ public class PaiXing {
 	private List<ShunziDianShuZu> shunziDianShuZuList = new ArrayList<>();
 	private List<DuiziDianShuZu> duiziDianShuZuList = new ArrayList<>();
 	private List<LianduiDianShuZu> lianduiDianShuZuList = new ArrayList<>();
+	private	List<SanzhangDianShuZu> sanzhangDianShuList = new ArrayList<>();
+ 	private List<SidaierDianShuZu> sidaierDianShuZulist = new ArrayList<>();
+ 	private List<SidaisanDianShuZu> sidaisanDianShuZuList = new ArrayList<>();
 	private List<SandaierDianShuZu> sandaierDianShuZuArrayList = new ArrayList<>();
 	private List<FeijiDianShuZu> feijiDianShuZuArrayList = new ArrayList<>();
 	private List<DanGeZhadanDianShuZu> danGeZhadanDianShuZuList = new ArrayList<>();
@@ -80,4 +83,27 @@ public class PaiXing {
 		this.danGeZhadanDianShuZuList = danGeZhadanDianShuZuList;
 	}
 
+	public List<SanzhangDianShuZu> getSanzhangDianShuList() {
+		return sanzhangDianShuList;
+	}
+
+	public void setSanzhangDianShuList(List<SanzhangDianShuZu> sanzhangDianShuList) {
+		this.sanzhangDianShuList = sanzhangDianShuList;
+	}
+
+	public List<SidaierDianShuZu> getSidaierDianShuZulist() {
+		return sidaierDianShuZulist;
+	}
+
+	public void setSidaierDianShuZulist(List<SidaierDianShuZu> sidaierDianShuZulist) {
+		this.sidaierDianShuZulist = sidaierDianShuZulist;
+	}
+
+	public List<SidaisanDianShuZu> getSidaisanDianShuZuList() {
+		return sidaisanDianShuZuList;
+	}
+
+	public void setSidaisanDianShuZuList(List<SidaisanDianShuZu> sidaisanDianShuZuList) {
+		this.sidaisanDianShuZuList = sidaisanDianShuZuList;
+	}
 }

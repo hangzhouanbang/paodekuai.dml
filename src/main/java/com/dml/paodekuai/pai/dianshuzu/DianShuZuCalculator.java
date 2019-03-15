@@ -85,9 +85,39 @@ public class DianShuZuCalculator {
     }
 
     /**
+     * 计算三张点数组
+     */
+    public static List<SanzhangDianShuZu> calculateSanzhangDianShuZu(int[] dianshuCountArray) {
+        // 三张牌
+        List<SanzhangDianShuZu> sanzhangDianShuZuList = DianShuZuGenerator
+                .generateAllSanzhangDianShuZu(dianshuCountArray);
+        return sanzhangDianShuZuList;
+    }
+
+    /**
+     * 计算四带二点数组
+     */
+    public static List<SidaierDianShuZu> calculateSidaierDianShuZu(int[] dianshuCountArray) {
+        // 三张牌
+        List<SidaierDianShuZu> sidaierDianShuZus = PaodekuaiDianShuZuGenerator
+                .generateAllSidaierDianShuZu(dianshuCountArray);
+        return sidaierDianShuZus;
+    }
+
+    /**
+     * 计算四带三点数组
+     */
+    public static List<SidaisanDianShuZu> calculateSidaisanDianShuZu(int[] dianshuCountArray) {
+        // 三张牌
+        List<SidaisanDianShuZu> sidaisanDianShuZus = PaodekuaiDianShuZuGenerator
+                .generateAllSidaisanDianShuZu(dianshuCountArray);
+        return sidaisanDianShuZus;
+    }
+
+    /**
      * 计算三带二点数组
      */
-    public static List<SandaierDianShuZu> calculateSanzhangDianShuZu(int[] dianshuCountArray, int shoupaiCount, boolean isSandaique) {
+    public static List<SandaierDianShuZu> calculateSandaierDianShuZu(int[] dianshuCountArray, int shoupaiCount, boolean isSandaique) {
         boolean sandaique = (shoupaiCount < 5) && isSandaique;
         // 三张牌
         List<SandaierDianShuZu> sandaierDianShuZus = PaodekuaiDianShuZuGenerator
@@ -98,7 +128,7 @@ public class DianShuZuCalculator {
     /**
      * 计算飞机点数组
      */
-    public static List<FeijiDianShuZu> calculateLiansanzhangDianShuZu(int[] dianshuCountArray,
+    public static List<FeijiDianShuZu> calculateFeijiDianShuZu(int[] dianshuCountArray,
                                                                       int shoupaiCount, boolean isFeijique) {
         // 连三张
         List<FeijiDianShuZu> feijiDianShuZus = new ArrayList<>();
@@ -170,6 +200,51 @@ public class DianShuZuCalculator {
             dachuDianShuArray[2] = sandaierDianShuZu.getSanzhangDianShuArray()[0];
             for (int i = 0; i < daipaiDianshuzu.length; i++) {
                 dachuDianShuArray[3 + i] = daipaiDianshuzu[i];
+            }
+            solution.setDachuDianShuArray(dachuDianShuArray);
+            solution.calculateDianshuZuheIdx();
+            solutionList.add(solution);
+        }
+        // 三张
+        for (SanzhangDianShuZu dianShuZu : paiXing.getSanzhangDianShuList()) {
+            DaPaiDianShuSolution solution = new DaPaiDianShuSolution();
+            solution.setDianShuZu(dianShuZu);
+            DianShu[] dachuDianShuArray = {dianShuZu.getDianShu(), dianShuZu.getDianShu(), dianShuZu.getDianShu()};
+            solution.setDachuDianShuArray(dachuDianShuArray);
+            solution.calculateDianshuZuheIdx();
+            solutionList.add(solution);
+        }
+        // 四带二
+        for (SidaierDianShuZu dianShuZu : paiXing.getSidaierDianShuZulist()) {
+            DaPaiDianShuSolution solution = new DaPaiDianShuSolution();
+            solution.setDianShuZu(dianShuZu);
+            int dachuDianShuLength = 4 + dianShuZu.getDaipaiDianShuArray().length;
+            DianShu[] dachuDianShuArray = new DianShu[dachuDianShuLength];
+            DianShu[] daipaiDianshuzu = dianShuZu.getDaipaiDianShuArray();
+            dachuDianShuArray[0] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[1] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[2] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[3] = dianShuZu.getDanpaiDianShu();
+            for (int i = 0; i < daipaiDianshuzu.length; i++) {
+                dachuDianShuArray[4 + i] = daipaiDianshuzu[i];
+            }
+            solution.setDachuDianShuArray(dachuDianShuArray);
+            solution.calculateDianshuZuheIdx();
+            solutionList.add(solution);
+        }
+        // 四带三
+        for (SidaisanDianShuZu dianShuZu : paiXing.getSidaisanDianShuZuList()) {
+            DaPaiDianShuSolution solution = new DaPaiDianShuSolution();
+            solution.setDianShuZu(dianShuZu);
+            int dachuDianShuLength = 4 + dianShuZu.getDaipaiDianShuArray().length;
+            DianShu[] dachuDianShuArray = new DianShu[dachuDianShuLength];
+            DianShu[] daipaiDianshuzu = dianShuZu.getDaipaiDianShuArray();
+            dachuDianShuArray[0] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[1] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[2] = dianShuZu.getDanpaiDianShu();
+            dachuDianShuArray[3] = dianShuZu.getDanpaiDianShu();
+            for (int i = 0; i < daipaiDianshuzu.length; i++) {
+                dachuDianShuArray[4 + i] = daipaiDianshuzu[i];
             }
             solution.setDachuDianShuArray(dachuDianShuArray);
             solution.calculateDianshuZuheIdx();

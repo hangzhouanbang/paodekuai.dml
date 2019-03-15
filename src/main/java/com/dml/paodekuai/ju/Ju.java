@@ -3,6 +3,7 @@ package com.dml.paodekuai.ju;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.dml.paodekuai.gameprocess.CurrentPanFinishiDeterminer;
 import com.dml.paodekuai.gameprocess.JuFinishiDeterminer;
 import com.dml.paodekuai.pai.waihao.WaihaoGenerator;
@@ -28,6 +29,8 @@ import com.dml.paodekuai.preparedapai.lipai.ShoupaiSortStrategy;
 import com.dml.paodekuai.preparedapai.luanpai.LuanpaiStrategy;
 import com.dml.paodekuai.preparedapai.xianda.XiandaPlayerDeterminer;
 import com.dml.paodekuai.preparedapai.zhuaniao.ZhuaniaoPlayerDeterminer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Ju {
 
@@ -63,6 +66,8 @@ public class Ju {
     private DianShuZuYaPaiSolutionCalculator dianShuZuYaPaiSolutionCalculator;
     private ZaDanYaPaiSolutionCalculator zaDanYaPaiSolutionCalculator;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     public void addDaListener(DaActionStatisticsListener daActionStatisticsListener) {
         actionStatisticsListenerManager.addDaListener(daActionStatisticsListener);
     }
@@ -93,6 +98,7 @@ public class Ju {
 
         currentPan.addFrame(new PanActionFrame(null, new PanValueObject(currentPan), startTime));
 
+        logger.debug(JSON.toJSONString(this));
     }
 
     public void startNextPan() throws Exception {
