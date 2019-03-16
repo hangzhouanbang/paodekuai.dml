@@ -1,22 +1,17 @@
 package com.dml.paodekuai.pai.dianshuzu;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
+import com.dml.paodekuai.preparedapai.lipai.DianshuOrPaishuShoupaiSortStrategy;
 import com.dml.puke.pai.DianShu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DanGeZhadanDianShuZu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DanzhangDianShuZu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZuGenerator;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DuiziDianShuZu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.LianduiDianShuZu;
-import com.dml.puke.wanfa.dianshu.dianshuzu.LiansanzhangDianShuZu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.SanzhangDianShuZu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.ShunziDianShuZu;
-import com.dml.paodekuai.pai.jiesuanpai.ShoupaiJiesuanPai;
 import com.dml.paodekuai.player.action.da.solution.DaPaiDianShuSolution;
 
 /**
@@ -148,6 +143,16 @@ public class DianShuZuCalculator {
         List<DanGeZhadanDianShuZu> danGeZhadanDianShuZuList = DianShuZuGenerator
                 .generateAllZhadanDianShuZu(dianshuCountArray);
         return danGeZhadanDianShuZuList;
+    }
+
+    /**
+     * 计算带一张牌的普通炸弹点数组
+     */
+    public static List<DaiPaiZhaDanDianShuZu> calculateDaiPaiZhaDanDianShuZu(int[] dianshuCountArray) {
+        // 三张牌
+        List<DaiPaiZhaDanDianShuZu> daiPaiZhaDanDianShuZus = PaodekuaiDianShuZuGenerator
+                .generateAllDaiPaiZhaDanDianShuZu(dianshuCountArray);
+        return daiPaiZhaDanDianShuZus;
     }
 
     /**
@@ -295,6 +300,17 @@ public class DianShuZuCalculator {
             for (int i = 0; i < zhadanDianShuZu.getSize(); i++) {
                 dachuDianShuArray[i] = zhadanDianShuZu.getDianShu();
             }
+            solution.setDachuDianShuArray(dachuDianShuArray);
+            solution.calculateDianshuZuheIdx();
+            solutionList.add(solution);
+        }
+        // 带牌炸弹（四带一）
+        for (DaiPaiZhaDanDianShuZu daiPaiZhaDanDianShuZu : paiXing.getDaipaiZhaDanDianShuZuList()) {
+            DaPaiDianShuSolution solution = new DaPaiDianShuSolution();
+            solution.setDianShuZu(daiPaiZhaDanDianShuZu);
+            DianShu zhadanDian = daiPaiZhaDanDianShuZu.getZhadanDian();
+            DianShu daipaiDian = daiPaiZhaDanDianShuZu.getDaipaiDian();
+            DianShu[] dachuDianShuArray = {zhadanDian,zhadanDian,zhadanDian,zhadanDian,daipaiDian};
             solution.setDachuDianShuArray(dachuDianShuArray);
             solution.calculateDianshuZuheIdx();
             solutionList.add(solution);

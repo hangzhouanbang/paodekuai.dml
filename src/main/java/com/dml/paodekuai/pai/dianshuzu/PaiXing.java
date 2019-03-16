@@ -23,6 +23,7 @@ public class PaiXing {
 	private List<SandaierDianShuZu> sandaierDianShuZuArrayList = new ArrayList<>();
 	private List<FeijiDianShuZu> feijiDianShuZuArrayList = new ArrayList<>();
 	private List<DanGeZhadanDianShuZu> danGeZhadanDianShuZuList = new ArrayList<>();
+	private List<DaiPaiZhaDanDianShuZu> daipaiZhaDanDianShuZuList = new ArrayList<>();
 
 	public PaiXing() {
 
@@ -105,5 +106,13 @@ public class PaiXing {
 
 	public void setSidaisanDianShuZuList(List<SidaisanDianShuZu> sidaisanDianShuZuList) {
 		this.sidaisanDianShuZuList = sidaisanDianShuZuList;
+	}
+
+	public List<DaiPaiZhaDanDianShuZu> getDaipaiZhaDanDianShuZuList() {
+		return daipaiZhaDanDianShuZuList;
+	}
+
+	public void setDaipaiZhaDanDianShuZuList(List<DaiPaiZhaDanDianShuZu> daipaiZhaDanDianShuZuList) {
+		this.daipaiZhaDanDianShuZuList = daipaiZhaDanDianShuZuList;
 	}
 }

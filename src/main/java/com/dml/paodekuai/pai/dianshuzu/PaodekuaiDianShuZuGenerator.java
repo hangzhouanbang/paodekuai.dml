@@ -41,11 +41,11 @@ public class PaodekuaiDianShuZuGenerator {
                 // 三张点数组
                 DianShu[] sanzhangDianShuArray = {DianShu.getDianShuByOrdinal(i)};
 
-                //取出除去三张之外的所有余牌
-                tempDinashu[i] = tempDinashu[i] - 3;
+                //取出除去三张之外的所有余牌,置0，防止与炸弹带牌牌型重复
+                tempDinashu[i] = 0;
                 List<DianShu> daipaiList = leftHand(tempDinashu);
 
-                if (sandaique && daipaiList.size() < 2) {
+                if (sandaique && daipaiList.size() < 2 && daipaiList.size() != 0) {
                     DianShu[] dianShus = new DianShu[daipaiList.size()];
                     daipaiList.toArray(dianShus);
                     SandaierDianShuZu sandaierDianShuZu = new SandaierDianShuZu();
@@ -154,6 +154,29 @@ public class PaodekuaiDianShuZuGenerator {
             aBoomDianShuZus.add(aBoomDianShuZu);
         }
         return aBoomDianShuZus;
+    }
+
+    /**
+     * 四带一的炸弹
+     */
+    public static List<DaiPaiZhaDanDianShuZu> generateAllDaiPaiZhaDanDianShuZu(int[] dianShuAmountArray) {
+        List<DaiPaiZhaDanDianShuZu> daiPaiZhaDanDianShuZus = new ArrayList<>();
+        for (int i = 0; i < dianShuAmountArray.length; i++) {
+            int dianshuCount = dianShuAmountArray[i];
+            if (dianshuCount == 4) {
+
+                //取出除去四张之外的所有余牌
+                for (int j = 0; j < 13; j++) {
+                    if (dianShuAmountArray[i] > 0 && i != j) {
+                        DaiPaiZhaDanDianShuZu daiPaiZhaDanDianShuZu = new DaiPaiZhaDanDianShuZu();
+                        daiPaiZhaDanDianShuZu.setZhadanDian(DianShu.getDianShuByOrdinal(i));
+                        daiPaiZhaDanDianShuZu.setDaipaiDian(DianShu.getDianShuByOrdinal(j));
+                        daiPaiZhaDanDianShuZus.add(daiPaiZhaDanDianShuZu);
+                    }
+                }
+            }
+        }
+        return daiPaiZhaDanDianShuZus;
     }
 
     /**
