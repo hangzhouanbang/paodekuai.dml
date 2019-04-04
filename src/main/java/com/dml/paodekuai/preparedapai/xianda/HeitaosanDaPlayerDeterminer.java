@@ -43,11 +43,20 @@ public class HeitaosanDaPlayerDeterminer implements XiandaPlayerDeterminer {
 		//分配玩家位置
 		currentPan.updatePlayerPosition(daplayerId, Position.dong);
 		Position[] positions = Position.values();
-		int index = 1;
-		for (String playerId : playerIdList) {
-			if (!playerId.equals(daplayerId)) {
-				currentPan.updatePlayerPosition(playerId, positions[index]);
-				index++;
+
+		if (playerIdList.size() == 2) {		// 2人时，东西对坐
+			for (String playerId : playerIdList) {
+				if (!playerId.equals(daplayerId)) {
+					currentPan.updatePlayerPosition(playerId, positions[2]);
+				}
+			}
+		} else {
+			int index = 1;
+			for (String playerId : playerIdList) {
+				if (!playerId.equals(daplayerId)) {
+					currentPan.updatePlayerPosition(playerId, positions[index]);
+					index++;
+				}
 			}
 		}
 		return daplayerId;
