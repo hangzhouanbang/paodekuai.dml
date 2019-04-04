@@ -199,6 +199,14 @@ public class Ju {
     }
 
     /**
+     *  有可以出的牌
+     */
+    public boolean canPlay(String playerId){
+        return currentPan.getPaodekuaiPlayerIdMajiangPlayerMap().get(playerId).canPlay();
+    }
+
+
+    /**
      * --------set/get
      */
 

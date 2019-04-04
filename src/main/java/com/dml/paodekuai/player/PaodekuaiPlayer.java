@@ -173,6 +173,13 @@ public class PaodekuaiPlayer {
 		shoupaiIdListForSortList = shoupaiSortStrategy.sortShoupai(allShoupai);
 	}
 
+	/**
+	 * 有可出牌
+	 */
+	public boolean canPlay() {
+		return yaPaiSolutionCandidates.size() != 0;
+	}
+
 	public String getId() {
 		return id;
 	}
