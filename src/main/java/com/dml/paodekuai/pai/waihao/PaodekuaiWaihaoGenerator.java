@@ -26,7 +26,7 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 		}
 		// 连对
 		if (dianShuZu instanceof LianduiDianShuZu) {
-			dianShuZuPaiZu.setWaihao("jiemeidui");
+			dianShuZuPaiZu.setWaihao("liandui");
 		}
 
 		// 单个炸弹
