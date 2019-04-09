@@ -82,8 +82,8 @@ public class PaodekuaiDianShuZuGenerator {
             int j = i;
             while (danzhangLianXuCount < length && j < 12 && dianShuAmountArray[j] >= 3) {// 3个或者3个以上的点数相连的3张牌，如555666777；2和大、小王无法参与
                 danzhangLianXuCount++;
+                tempDinashu[j] = tempDinashu[j] - 3;
                 j++;
-                tempDinashu[i] = tempDinashu[i] - 3;
             }
 
             if (danzhangLianXuCount >= length) {

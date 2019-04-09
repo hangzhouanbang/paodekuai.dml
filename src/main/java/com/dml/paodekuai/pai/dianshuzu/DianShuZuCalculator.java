@@ -3,6 +3,7 @@ package com.dml.paodekuai.pai.dianshuzu;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.dml.paodekuai.preparedapai.lipai.DianshuOrPaishuShoupaiSortStrategy;
 import com.dml.puke.pai.DianShu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DanGeZhadanDianShuZu;
@@ -128,7 +129,7 @@ public class DianShuZuCalculator {
         // 连三张
         List<FeijiDianShuZu> feijiDianShuZus = new ArrayList<>();
         for (int k = 2; k < 5; k++) {// 最小2连，最大5连
-            boolean feijique = (k * 5 < shoupaiCount) && isFeijique;
+            boolean feijique = (k * 5 > shoupaiCount) && isFeijique;
             feijiDianShuZus.addAll(PaodekuaiDianShuZuGenerator
                     .generateAllFeijiDianShuZu(dianshuCountArray, k, feijique));
         }
