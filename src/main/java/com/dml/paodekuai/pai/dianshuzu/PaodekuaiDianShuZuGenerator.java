@@ -50,6 +50,7 @@ public class PaodekuaiDianShuZuGenerator {
                     daipaiList.toArray(dianShus);
                     SandaierDianShuZu sandaierDianShuZu = new SandaierDianShuZu();
                     sandaierDianShuZu.setSanzhangDianShuArray(sanzhangDianShuArray);
+                    sandaierDianShuZu.setDaipaiDianShuArray(dianShus);
                     sandaierDianShuZu.setMissingType(true);
                     sanzhangList.add(sandaierDianShuZu);
                     continue;
