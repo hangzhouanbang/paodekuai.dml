@@ -1,14 +1,16 @@
 package com.dml.paodekuai.pan;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.dml.puke.pai.PukePai;
-import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
-import com.dml.puke.wanfa.position.Position;
-import com.dml.puke.wanfa.position.PositionUtil;
 import com.dml.paodekuai.pai.waihao.WaihaoGenerator;
-import com.dml.paodekuai.player.PlayerNotFoundException;
 import com.dml.paodekuai.player.PaodekuaiPlayer;
+import com.dml.paodekuai.player.PlayerNotFoundException;
 import com.dml.paodekuai.player.action.PaodekuaiPlayerAction;
 import com.dml.paodekuai.player.action.da.DaAction;
 import com.dml.paodekuai.player.action.da.KedaPaiSolutionsForTipsGenerator;
@@ -18,6 +20,10 @@ import com.dml.paodekuai.player.action.da.solution.DianShuZuYaPaiSolutionCalcula
 import com.dml.paodekuai.player.action.da.solution.ZaDanYaPaiSolutionCalculator;
 import com.dml.paodekuai.player.action.guo.CanNotGuoException;
 import com.dml.paodekuai.player.action.guo.GuoAction;
+import com.dml.puke.pai.PukePai;
+import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
+import com.dml.puke.wanfa.position.Position;
+import com.dml.puke.wanfa.position.PositionUtil;
 
 public class Pan {
 	private int no;
@@ -29,7 +35,7 @@ public class Pan {
 	private boolean chuifeng;// 吹风
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
-	private String zhuaniaoPlayerId;	// 抓鸟玩家id
+	private String zhuaniaoPlayerId; // 抓鸟玩家id
 	private List<PanActionFrame> actionFrameList = new ArrayList<>();
 	private Set<String> baodanSet = new HashSet<>();
 
@@ -167,10 +173,11 @@ public class Pan {
 
 					}
 					if (yapaiPlayer != null) {
-						yapaiPlayer.addDaPaiDianShuSolutions(dianShuZuYaPaiCalculator
-								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray(), afterNextBaodan()));
-						yapaiPlayer.addDaPaiDianShuSolutions(zaDanYaPaiCalculator.
-								calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray()));
+						yapaiPlayer
+								.addDaPaiDianShuSolutions(dianShuZuYaPaiCalculator.calculate(dachuPaiZu.getDianShuZu(),
+										yapaiPlayer.getShoupaiDianShuAmountArray(), afterNextBaodan()));
+						yapaiPlayer.addDaPaiDianShuSolutions(zaDanYaPaiCalculator.calculate(dachuPaiZu.getDianShuZu(),
+								yapaiPlayer.getShoupaiDianShuAmountArray()));
 					}
 				}
 			}
@@ -317,10 +324,10 @@ public class Pan {
 	/**
 	 * 通过三人局中下下家是否报单决定下家单张牌的打牌方案
 	 */
-	public boolean afterNextBaodan(){
+	public boolean afterNextBaodan() {
 		boolean baodan = false;
 		String afterNextPlayerId = findAfterNextPlayer();
-		if (baodanSet.contains(afterNextPlayerId)) {
+		if (paodekuaiPlayerIdMajiangPlayerMap.size() == 3 && baodanSet.contains(afterNextPlayerId)) {
 			baodan = true;
 		}
 		return baodan;
