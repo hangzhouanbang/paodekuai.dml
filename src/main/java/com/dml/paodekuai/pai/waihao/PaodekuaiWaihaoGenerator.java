@@ -1,8 +1,19 @@
 package com.dml.paodekuai.pai.waihao;
 
-import com.dml.paodekuai.pai.dianshuzu.*;
+import com.dml.paodekuai.pai.dianshuzu.ABoomDianShuZu;
+import com.dml.paodekuai.pai.dianshuzu.DaiPaiZhaDanDianShuZu;
+import com.dml.paodekuai.pai.dianshuzu.FeijiDianShuZu;
+import com.dml.paodekuai.pai.dianshuzu.SandaierDianShuZu;
+import com.dml.paodekuai.pai.dianshuzu.SidaierDianShuZu;
+import com.dml.paodekuai.pai.dianshuzu.SidaisanDianShuZu;
 import com.dml.puke.pai.DianShu;
-import com.dml.puke.wanfa.dianshu.dianshuzu.*;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DanGeZhadanDianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DanzhangDianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DuiziDianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.LianduiDianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.SanzhangDianShuZu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.ShunziDianShuZu;
 import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
 
 public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
@@ -31,8 +42,13 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 
 		// 单个炸弹
 		if (dianShuZu instanceof DanGeZhadanDianShuZu) {
-			DianShu dianshu = ((DanGeZhadanDianShuZu) dianShuZu).getDianShu();
-			dianShuZuPaiZu.setWaihao(((DanGeZhadanDianShuZu) dianShuZu).getSize() + dianshu.name());
+			if (dianShuZu instanceof DaiPaiZhaDanDianShuZu) {
+				DianShu dianshu = ((DaiPaiZhaDanDianShuZu) dianShuZu).getZhadanDian();
+				dianShuZuPaiZu.setWaihao(4 + dianshu.name());
+			} else {
+				DianShu dianshu = ((DanGeZhadanDianShuZu) dianShuZu).getDianShu();
+				dianShuZuPaiZu.setWaihao(((DanGeZhadanDianShuZu) dianShuZu).getSize() + dianshu.name());
+			}
 		}
 
 		// 带牌炸弹
@@ -42,22 +58,22 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 		}
 
 		// aaa炸
-		if(dianShuZu instanceof ABoomDianShuZu) {
+		if (dianShuZu instanceof ABoomDianShuZu) {
 			dianShuZuPaiZu.setWaihao("aaazha");
 		}
 
 		// 三带二
-		if(dianShuZu instanceof SandaierDianShuZu) {
+		if (dianShuZu instanceof SandaierDianShuZu) {
 			dianShuZuPaiZu.setWaihao("sandaier");
 		}
 
 		// 飞机
-		if(dianShuZu instanceof FeijiDianShuZu) {
+		if (dianShuZu instanceof FeijiDianShuZu) {
 			dianShuZuPaiZu.setWaihao("feiji");
 		}
 
 		// 三张
-		if(dianShuZu instanceof SanzhangDianShuZu) {
+		if (dianShuZu instanceof SanzhangDianShuZu) {
 			SanzhangDianShuZu sanzhangDianShuZu = (SanzhangDianShuZu) dianShuZu;
 			dianShuZuPaiZu.setWaihao(3 + sanzhangDianShuZu.getDianShu().name());
 		}
@@ -68,7 +84,7 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 		}
 
 		// 四带三
-		if(dianShuZu instanceof SidaisanDianShuZu) {
+		if (dianShuZu instanceof SidaisanDianShuZu) {
 			dianShuZuPaiZu.setWaihao("sidaisan");
 		}
 
