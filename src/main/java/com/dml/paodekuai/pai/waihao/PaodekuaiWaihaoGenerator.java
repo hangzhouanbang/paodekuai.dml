@@ -43,18 +43,13 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 		// 单个炸弹
 		if (dianShuZu instanceof DanGeZhadanDianShuZu) {
 			if (dianShuZu instanceof DaiPaiZhaDanDianShuZu) {
+				// 带牌炸弹
 				DianShu dianshu = ((DaiPaiZhaDanDianShuZu) dianShuZu).getZhadanDian();
 				dianShuZuPaiZu.setWaihao(4 + dianshu.name());
 			} else {
 				DianShu dianshu = ((DanGeZhadanDianShuZu) dianShuZu).getDianShu();
 				dianShuZuPaiZu.setWaihao(((DanGeZhadanDianShuZu) dianShuZu).getSize() + dianshu.name());
 			}
-		}
-
-		// 带牌炸弹
-		if (dianShuZu instanceof DaiPaiZhaDanDianShuZu) {
-			DianShu dianshu = ((DaiPaiZhaDanDianShuZu) dianShuZu).getZhadanDian();
-			dianShuZuPaiZu.setWaihao(((DanGeZhadanDianShuZu) dianShuZu).getSize() + dianshu.name());
 		}
 
 		// aaa炸

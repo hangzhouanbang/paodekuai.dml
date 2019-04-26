@@ -2,9 +2,7 @@ package com.dml.paodekuai.pai.dianshuzu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.dml.puke.pai.DianShu;
 import com.dml.puke.wanfa.dianshu.dianshuzu.DanzhangDianShuZu;
@@ -137,17 +135,10 @@ public class PaodekuaiDianShuZuGenerator {
 					quPai(daipaiList, yupaiList, new DianShu[length * 2], length * 2, 0, 0);
 
 					for (DianShu[] daipaiDianshuzu : daipaiList) {
-						// 只能都是对子或单张
-						Set<DianShu> dianshuSet = new HashSet<>();
-						for (DianShu dianshu : daipaiDianshuzu) {
-							dianshuSet.add(dianshu);
-						}
-						if (dianshuSet.size() == 2 || dianshuSet.size() == 4) {
-							FeijiDianShuZu feijiDianShuZu = new FeijiDianShuZu();
-							feijiDianShuZu.setSanzhangDianShuArray(sanzhangDianshuzu);
-							feijiDianShuZu.setDaipaiDianShuArray(daipaiDianshuzu);
-							feijiDianShuZus.add(feijiDianShuZu);
-						}
+						FeijiDianShuZu feijiDianShuZu = new FeijiDianShuZu();
+						feijiDianShuZu.setSanzhangDianShuArray(sanzhangDianshuzu);
+						feijiDianShuZu.setDaipaiDianShuArray(daipaiDianshuzu);
+						feijiDianShuZus.add(feijiDianShuZu);
 					}
 				}
 			}
