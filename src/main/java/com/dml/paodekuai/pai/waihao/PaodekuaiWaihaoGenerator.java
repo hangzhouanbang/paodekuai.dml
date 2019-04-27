@@ -1,7 +1,6 @@
 package com.dml.paodekuai.pai.waihao;
 
 import com.dml.paodekuai.pai.dianshuzu.ABoomDianShuZu;
-import com.dml.paodekuai.pai.dianshuzu.DaiPaiZhaDanDianShuZu;
 import com.dml.paodekuai.pai.dianshuzu.FeijiDianShuZu;
 import com.dml.paodekuai.pai.dianshuzu.SandaierDianShuZu;
 import com.dml.paodekuai.pai.dianshuzu.SidaierDianShuZu;
@@ -42,14 +41,7 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 
 		// 单个炸弹
 		if (dianShuZu instanceof DanGeZhadanDianShuZu) {
-			if (dianShuZu instanceof DaiPaiZhaDanDianShuZu) {
-				// 带牌炸弹
-				DianShu dianshu = ((DaiPaiZhaDanDianShuZu) dianShuZu).getZhadanDian();
-				dianShuZuPaiZu.setWaihao(4 + dianshu.name());
-			} else {
-				DianShu dianshu = ((DanGeZhadanDianShuZu) dianShuZu).getDianShu();
-				dianShuZuPaiZu.setWaihao(((DanGeZhadanDianShuZu) dianShuZu).getSize() + dianshu.name());
-			}
+			dianShuZuPaiZu.setWaihao("zhadan");
 		}
 
 		// aaa炸

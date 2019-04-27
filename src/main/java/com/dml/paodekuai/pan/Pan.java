@@ -32,7 +32,6 @@ public class Pan {
 	private List<PukePai> avaliablePaiList = new ArrayList<>();
 	private List<DianShuZuPaiZu> dachuPaiZuList = new ArrayList<>();
 	private List<String> noPaiPlayerIdList = new ArrayList<>();// 按走的顺序排的playerid数组
-	private boolean chuifeng;// 吹风
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 	private String zhuaniaoPlayerId; // 抓鸟玩家id
@@ -132,9 +131,7 @@ public class Pan {
 		dachuPaiZuList.add(publicDachuPaiZu);
 
 		latestDapaiPlayerId = playerId;
-		chuifeng = false;
 		if (daPlayer.getAllShoupai().isEmpty()) {
-			chuifeng = true;
 			noPaiPlayerIdList.add(playerId);
 		}
 		DaAction daAction = new DaAction(playerId);
@@ -236,19 +233,6 @@ public class Pan {
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}
 		PaodekuaiPlayer yapaiPlayer = paodekuaiPlayerIdMajiangPlayerMap.get(yapaiPlayerId);
-		if (chuifeng) {// 吹风
-			nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
-			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-			while (yapaiPlayerId == null
-					|| !ifPlayerHasPai(yapaiPlayerId) && !yapaiPlayerId.equals(latestDapaiPlayerId)) {
-				nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
-				yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-			}
-			String playerId = noPaiPlayerIdList.get(noPaiPlayerIdList.size() - 1);
-			if (playerId.equals(yapaiPlayerId)) {
-				yapaiPlayer = findDuijiaPlayer(playerId);
-			}
-		}
 		return yapaiPlayer;
 	}
 
@@ -283,22 +267,7 @@ public class Pan {
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}
 		PaodekuaiPlayer yapaiPlayer = paodekuaiPlayerIdMajiangPlayerMap.get(yapaiPlayerId);
-		if (chuifeng) {// 吹风
-			nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
-			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-			while (yapaiPlayerId == null
-					|| !ifPlayerHasPai(yapaiPlayerId) && !yapaiPlayerId.equals(latestDapaiPlayerId)) {
-				nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
-				yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-			}
-			String playerId = noPaiPlayerIdList.get(noPaiPlayerIdList.size() - 1);
-			if (playerId.equals(yapaiPlayerId)) {
-				return true;
-			}
-			return false;
-		} else {
-			return yapaiPlayer.getId().equals(latestDapaiPlayerId);
-		}
+		return yapaiPlayer.getId().equals(latestDapaiPlayerId);
 	}
 
 	/**
@@ -407,14 +376,6 @@ public class Pan {
 
 	public void setActionFrameList(List<PanActionFrame> actionFrameList) {
 		this.actionFrameList = actionFrameList;
-	}
-
-	public boolean isChuifeng() {
-		return chuifeng;
-	}
-
-	public void setChuifeng(boolean chuifeng) {
-		this.chuifeng = chuifeng;
 	}
 
 	public String getZhuaniaoPlayerId() {
