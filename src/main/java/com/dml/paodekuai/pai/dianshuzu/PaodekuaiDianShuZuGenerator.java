@@ -17,7 +17,7 @@ public class PaodekuaiDianShuZuGenerator {
 	 */
 	public static List<DanzhangDianShuZu> largestDanzhangDianshuzu(int[] dianShuAmountArray) {
 		List<DanzhangDianShuZu> danzhangList = new ArrayList<>();
-		for (int i = dianShuAmountArray.length - 1; i < 0; i--) {
+		for (int i = dianShuAmountArray.length - 1; i >= 0; i--) {
 			int dianshuCount = dianShuAmountArray[i];
 			if (dianshuCount >= 1) {
 				DanzhangDianShuZu danzhangDianShuZu = new DanzhangDianShuZu(DianShu.getDianShuByOrdinal(i));
