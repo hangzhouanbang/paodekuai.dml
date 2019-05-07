@@ -46,7 +46,7 @@ public class PaodekuaiWaihaoGenerator implements WaihaoGenerator {
 
 		// aaa炸
 		if (dianShuZu instanceof ABoomDianShuZu) {
-			dianShuZuPaiZu.setWaihao("aaazha");
+			dianShuZuPaiZu.setWaihao("zhadan");
 		}
 
 		// 三带二
